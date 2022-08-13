@@ -16,7 +16,14 @@ namespace ProyectoFinal
         private int c = 0;
         public ModificarTarea()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            if (!File.Exists("tareas.txt"))
+            {
+                StreamWriter archivo = new StreamWriter("tareas.txt");
+                archivo.Close();
+            }
+
+
             gbx_datos.Hide();
             btn_modificar.Hide();
         }

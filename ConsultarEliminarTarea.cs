@@ -18,6 +18,11 @@ namespace ProyectoFinal
         public ConsultarEliminarTarea()
         {            
             InitializeComponent();
+            if (!File.Exists("tareas.txt"))
+            {
+                StreamWriter archivo = new StreamWriter("tareas.txt");
+                archivo.Close();
+            }
             btn_comprobar_fecha.Hide();
             btn_comprobar_estado.Hide();
             lbl_fechacreacion.Hide();
