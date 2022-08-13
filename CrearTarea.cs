@@ -74,10 +74,7 @@ namespace ProyectoFinal
         private void btn_listo_Click(object sender, EventArgs e)
         {
             ValidarDatos();
-            if (c == 1)
-            {
-                GrabarDatos();
-            }            
+                  
             var id = this.txt_id.Text;
             var nombre = this.txt_nombre.Text;
             var descripcion = this.txt_descripcion.Text;
@@ -92,29 +89,35 @@ namespace ProyectoFinal
             {
                 a = 1;
             }
-            if (c == 0)
+            if (c == 1)
             {
                 MessageBox.Show("ID ya existe. Por favor escriba un ID diferente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            if (a == 1 && b == 1 && c == 1)
+            if (a == 1 && b == 1 && c == 0)
             {
-                //dataGridView1.Rows.Add(txt_id.Text, txt_nombre.Text, txt_descripcion.Text, dtp_fechacreacion.Text, dtp_fechalimite.Text, cbx_estado.Text);
+                GrabarDatos();
                 MessageBox.Show("Tarea creada exitosamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 var form1 = new ProyectoFinal();
                 form1.Show();
                 this.Hide();
             }
+            
         }
         private void ValidarDatos()
         {
-            c = 1;
+            c = 0;
             StreamReader archivo = new StreamReader("tareas.txt", true);
             while (!archivo.EndOfStream)
-            {
+            {                
                 string id = archivo.ReadLine();
+                string nombre = archivo.ReadLine();
+                string descripcion = archivo.ReadLine();
+                string fechacreacion = archivo.ReadLine();
+                string fechalimite = archivo.ReadLine();
+                string estado = archivo.ReadLine();
                 if (id == this.txt_id.Text)
                 {
-                    c = 0;
+                    c = 1;
                 }
             }
             archivo.Close();

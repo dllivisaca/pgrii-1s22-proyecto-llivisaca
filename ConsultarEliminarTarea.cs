@@ -185,13 +185,7 @@ namespace ProyectoFinal
                         descripcion_ = "";
                         fechacreacion_ = "";
                         fechalimite_ = "";
-                        estado_ = "";
-                        escribir.WriteLine(id_);
-                        escribir.WriteLine(nombre_);
-                        escribir.WriteLine(descripcion_);
-                        escribir.WriteLine(fechacreacion_);
-                        escribir.WriteLine(fechalimite_);
-                        escribir.WriteLine(estado_);
+                        estado_ = "";                        
                     }
                     else
                     {
@@ -200,14 +194,20 @@ namespace ProyectoFinal
                         string descripcion = descripcion_;
                         string fechacreacion = fechacreacion_;
                         string fechalimite = fechalimite_;
-                        string estado = estado_;                        
+                        string estado = estado_;
+                        escribir.WriteLine(id);
+                        escribir.WriteLine(nombre);
+                        escribir.WriteLine(descripcion);
+                        escribir.WriteLine(fechacreacion);
+                        escribir.WriteLine(fechalimite);
+                        escribir.WriteLine(estado);
                     }
                 }
                 lectura.Close();
                 escribir.Close();
                 File.Delete("tareas.txt");
                 File.Move("tmp.txt", "tareas.txt");
-                MessageBox.Show("Tarea eliminada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Tarea(s) eliminada(s) correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 var form1 = new ProyectoFinal();
                 form1.Show();
                 this.Hide();
