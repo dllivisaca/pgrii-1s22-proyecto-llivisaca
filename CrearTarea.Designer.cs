@@ -187,7 +187,7 @@
             // 
             // btn_volver
             // 
-            this.btn_volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btn_volver.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.btn_volver.Font = new System.Drawing.Font("Rockwell", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_volver.Location = new System.Drawing.Point(858, 246);
             this.btn_volver.Name = "btn_volver";
@@ -208,6 +208,7 @@
             this.btn_listo.TabIndex = 19;
             this.btn_listo.Text = "Listo";
             this.btn_listo.UseVisualStyleBackColor = false;
+            this.btn_listo.Click += new System.EventHandler(this.btn_listo_Click);
             // 
             // CrearTarea
             // 

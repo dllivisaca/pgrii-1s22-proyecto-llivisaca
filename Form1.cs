@@ -15,6 +15,11 @@ namespace ProyectoFinal
         public ProyectoFinal()
         {
             InitializeComponent();
+            if (!File.Exists("tareas.txt"))
+            {
+                btn_consultareliminartarea.Hide();
+                btn_modificar_tarea.Hide();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
