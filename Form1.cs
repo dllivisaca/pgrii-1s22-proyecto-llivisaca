@@ -23,21 +23,21 @@ namespace ProyectoFinal
         {
 
         }
-
+        //se dirige al formulario CrearTarea
         private void btn_crear_tarea_Click(object sender, EventArgs e)
         {
             var form2 = new CrearTarea();
             form2.Show();
             this.Hide();
         }
-
+        //se dirige al formulario ModificarTarea
         private void btn_modificar_tarea_Click(object sender, EventArgs e)
         {
             var form3 = new ModificarTarea();
             form3.Show();
             this.Hide();
         }
-
+        //se dirige al formulario ConsultarEliminarTarea
         private void btn_consultareliminartarea_Click(object sender, EventArgs e)
         {
             var form4 = new ConsultarEliminarTarea();

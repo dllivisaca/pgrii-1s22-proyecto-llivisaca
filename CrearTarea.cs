@@ -13,6 +13,7 @@ namespace ProyectoFinal
 {
     public partial class CrearTarea : Form
     {
+        //inicializar variables de validacion
         private int a = 0;
         private int b = 0;
         private int c = 1;
@@ -30,7 +31,7 @@ namespace ProyectoFinal
         {
 
         }
-
+        //crea el archivo tareas.txt en caso de que no exista
         private void CrearTarea_Load(object sender, EventArgs e)
         {
             if (!File.Exists("tareas.txt"))
@@ -39,24 +40,23 @@ namespace ProyectoFinal
                 archivo.Close();
             }
         }
-
+        //permite volver al menu principal
         private void btn_volver_Click(object sender, EventArgs e)
         {
             var form1 = new ProyectoFinal();
             form1.Show();
             this.Hide();
         }
-
+        //establece el formato de fecha dd/MM/yyyy
         private void dtp_fechacreacion_ValueChanged(object sender, EventArgs e)
         {
             dtp_fechacreacion.CustomFormat = "dd/MM/yyyy";
         }
-
         private void dtp_fechalimite_ValueChanged(object sender, EventArgs e)
         {
             dtp_fechalimite.CustomFormat = "dd/MM/yyyy";
         }
-
+        //valida que la fecha de creacion no sea mayor a la fecha limite y muestra un mensaje de error 
         private void dtp_fechalimite_CloseUp(object sender, EventArgs e)
         {
             DateTime fromdate = Convert.ToDateTime(dtp_fechacreacion.Text);
@@ -70,7 +70,7 @@ namespace ProyectoFinal
                 b = 1;
             }
         }
-
+        //valida que todos los campos esten llenos, que el ID no exista y muestra un mensaje de error o un mensaje informativo
         private void btn_listo_Click(object sender, EventArgs e)
         {
             ValidarDatos();
@@ -100,9 +100,9 @@ namespace ProyectoFinal
                 var form1 = new ProyectoFinal();
                 form1.Show();
                 this.Hide();
-            }
-            
+            }            
         }
+        //valida que el ID no exista
         private void ValidarDatos()
         {
             c = 0;
@@ -122,6 +122,7 @@ namespace ProyectoFinal
             }
             archivo.Close();
         }
+        //escribe los datos en el archivo tareas.txt
         private void GrabarDatos()
         {
             StreamWriter archivo = new StreamWriter("tareas.txt", true);

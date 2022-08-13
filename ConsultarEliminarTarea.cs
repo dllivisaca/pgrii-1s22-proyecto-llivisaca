@@ -13,16 +13,19 @@ namespace ProyectoFinal
 {
     public partial class ConsultarEliminarTarea : Form
     {
+        //inicializar variables de validacion
         private int a = 0;
         private int b = 0;
         public ConsultarEliminarTarea()
         {            
             InitializeComponent();
+            //Crea el archivo tareas.txt en caso de que no exista
             if (!File.Exists("tareas.txt"))
             {
                 StreamWriter archivo = new StreamWriter("tareas.txt");
                 archivo.Close();
             }
+            //oculta ciertos botones, etiquetas y demas que luego apareceran conforme se vayan validando los datos
             btn_comprobar_fecha.Hide();
             btn_comprobar_estado.Hide();
             lbl_fechacreacion.Hide();
@@ -34,10 +37,12 @@ namespace ProyectoFinal
             btn_eliminarfecha.Hide();
             btn_eliminarestado.Hide();
         }
+        //establece el formato dd/MM/yyyy para la fecha de creacion
         private void dtp_fechacreacion_ValueChanged(object sender, EventArgs e)
         {
             dtp_fechacreacion.CustomFormat = "dd/MM/yyyy";
         }
+        //valida que el estado exista
         private void ValidarEstado()
         {
             b = 0;
@@ -57,6 +62,7 @@ namespace ProyectoFinal
             }
             archivo.Close();
         }
+        //valida que la fecha exista
         private void ValidarFechacreacion()
         {
             a = 0;
@@ -76,6 +82,7 @@ namespace ProyectoFinal
             }
             archivo.Close();
         }
+        //muestra y oculta parametros de busqueda correspondientes fecha de creacion 
         private void btn_buscarfecha_Click(object sender, EventArgs e)
         {
             btn_buscarfecha.Hide();
@@ -84,7 +91,7 @@ namespace ProyectoFinal
             btn_comprobar_fecha.Show();
             btn_buscarestado.Hide();
         }
-
+        //muestra y oculta parametros de busqueda correspondientes a estado 
         private void btn_buscarestado_Click(object sender, EventArgs e)
         {
             btn_buscarestado.Hide();
@@ -93,7 +100,7 @@ namespace ProyectoFinal
             btn_comprobar_estado.Show();
             btn_buscarfecha.Hide();
         }
-
+        //valida que la fecha exista y muestra un mensaje de error
         private void btn_comprobar_fecha_Click(object sender, EventArgs e)
         {
             ValidarFechacreacion();
@@ -105,6 +112,7 @@ namespace ProyectoFinal
             {
                 dgv_tareas.Show();
                 lbl_tareas.Show();
+                btn_comprobar_fecha.Hide();
                 StreamReader archivo = new StreamReader("tareas.txt", true);
                 while (!archivo.EndOfStream)
                 {
@@ -123,7 +131,7 @@ namespace ProyectoFinal
                 archivo.Close();
             }
         }
-
+        //valida que el estado exista y muestra un mensaje de error
         private void btn_comprobar_estado_Click(object sender, EventArgs e)
         {
             ValidarEstado();
@@ -133,6 +141,7 @@ namespace ProyectoFinal
             }
             else
             {
+                btn_comprobar_estado.Hide();
                 dgv_tareas.Show();
                 lbl_tareas.Show();
                 StreamReader archivo = new StreamReader("tareas.txt", true);
@@ -154,13 +163,14 @@ namespace ProyectoFinal
 
             }
         }
-
+        //permite volver al menu principal
         private void btn_volver_Click(object sender, EventArgs e)
         {
             var form1 = new ProyectoFinal();
             form1.Show();
             this.Hide();
         }
+        //elimina las tareas que coinciden con la fecha de creacion seleccionada
         private void Eliminardatosfecha()
         {
             StreamReader lectura;
@@ -214,9 +224,10 @@ namespace ProyectoFinal
             }
             catch
             {
-                MessageBox.Show("No se ha podido eliminar la tarea", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha podido eliminar la(s) tarea(s)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //elimina las tareas que coinciden con el estado seleccionado
         private void Eliminardatosestado()
         {
             StreamReader lectura;
@@ -263,22 +274,22 @@ namespace ProyectoFinal
                 escribir.Close();
                 File.Delete("tareas.txt");
                 File.Move("tmp.txt", "tareas.txt");
-                MessageBox.Show("Tarea eliminada correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Tarea(s) eliminada(s) correctamente", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 var form1 = new ProyectoFinal();
                 form1.Show();
                 this.Hide();
             }
             catch
             {
-                MessageBox.Show("No se ha podido eliminar la tarea", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se ha podido eliminar la(s) tarea(s)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        //llama al metodo para eliminar las tareas que coinciden con el estado seleccionado
         private void btn_eliminarestado_Click(object sender, EventArgs e)
         {
             Eliminardatosestado();
         }
-
+        //llama al metodo para eliminar las tareas que coinciden con la fecha de creacion seleccionada
         private void btn_eliminarfecha_Click(object sender, EventArgs e)
         {
             Eliminardatosfecha();

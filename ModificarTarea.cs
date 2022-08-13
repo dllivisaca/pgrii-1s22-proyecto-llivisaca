@@ -13,20 +13,22 @@ namespace ProyectoFinal
 {
     public partial class ModificarTarea : Form
     {
+        //inicializar variable de validacion
         private int c = 0;
         public ModificarTarea()
         {
             InitializeComponent();
+            //Crea el archivo tareas.txt en caso de que no exista
             if (!File.Exists("tareas.txt"))
             {
                 StreamWriter archivo = new StreamWriter("tareas.txt");
                 archivo.Close();
             }
-
-
+            //oculta el groupbox y el boton modificar
             gbx_datos.Hide();
             btn_modificar.Hide();
         }
+        //valida que el ID exista
         private void ValidarID()
         {
             c = 0;
@@ -41,6 +43,7 @@ namespace ProyectoFinal
             }
             archivo.Close();
         }
+        //escribe los datos nuevos en un archivo tmp.txt el cual luego reemplazara al archivo tareas.txt
         private void GrabarDatosModificados()
         {
             StreamReader lectura;
@@ -93,6 +96,7 @@ namespace ProyectoFinal
                 MessageBox.Show("No se ha podido modificar la tarea", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        //valida que los campos esten llenos y muestra un mensaje de error o un mensaje informativo
         private void btn_modificar_Click(object sender, EventArgs e)
         {
             var nombre = this.txt_nombre.Text;
@@ -113,6 +117,7 @@ namespace ProyectoFinal
                 this.Hide();
             }
         }
+        //valida que el estado de la tarea sea "creada" y muestra un mensaje de error
         private void ValidarEstado()
         {
             StreamReader archivo = new StreamReader("tareas.txt", true);
@@ -131,7 +136,7 @@ namespace ProyectoFinal
                         gbx_datos.Show();
                         lbl_idmodificar.Text = id;
                         btn_modificar.Show();
-
+                        btn_comprobar.Hide();
                     }
                     else
                     {
@@ -140,26 +145,24 @@ namespace ProyectoFinal
                 }
             }
             archivo.Close();
-
         }
-
+        //permite volver el menu principal
         private void btn_volver_Click(object sender, EventArgs e)
         {
             var form1 = new ProyectoFinal();
             form1.Show();
             this.Hide();
         }
-
+        //establece el formato dd/MM/yyyy para las fechas
         private void dtp_fechacreacion_ValueChanged(object sender, EventArgs e)
         {
             dtp_fechacreacion.CustomFormat = "dd/MM/yyyy";
         }
-
         private void dtp_fechalimite_ValueChanged(object sender, EventArgs e)
         {
             dtp_fechalimite.CustomFormat = "dd/MM/yyyy";
         }
-
+        //valida que la fecha creacion no sea mayor que la fecha limite y muestra un mensaje de error
         private void dtp_fechalimite_CloseUp(object sender, EventArgs e)
         {
             DateTime fromdate = Convert.ToDateTime(dtp_fechacreacion.Text);
@@ -167,10 +170,9 @@ namespace ProyectoFinal
             if (fromdate >= todate)
             {
                 MessageBox.Show("La Fecha de Creacion debe ser menor a la Fecha limite", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
         }
-
+        //valida que el ID exista y muestra un mensaje de error
         private void btn_comprobar_Click(object sender, EventArgs e)
         {
             ValidarID();
